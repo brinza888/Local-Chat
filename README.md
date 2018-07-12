@@ -1,1 +1,42 @@
-Local Chat
+# Local Chat v0.1
+---
+- ## 1. Server
+  - Main chat unit
+  - Server will resend messages from user to other joined users
+  - ### 1.1 Setup server
+    - Start file "Serer.py"
+    - Write IP of your device in local network (use ipconfig in console to fing your ip)
+    - Then setup console to use admin commands (see par. 3)
+- ## 2. Client
+  - Use for join server and use chat
+  - Client will send message to server. Server will resend messages from user to other joined users
+  - ### 2.1 Setup client
+    - Start file "Client.py"
+    - Write server's IP in the bottom text box and send it
+    - If all correct you will get INFO message "Welcome on server: (IP)"  (all INFO/ERRORS messages see in par. 4)
+  - ### 2.2 Other functions
+    - You will get nick "Guest#ID", ID - is your ID. If you want to change nick type "/setnick [new_nick]"
+    - To send messages you can use "Enter" key or click on button "Send"
+    - All users/admins commands you can see in par. 5
+- ## 3. Console
+  - Console use client interface and also starts with "Client.py" file
+  - Console available only on same device that server started
+  - ### 3.1 Setup console
+    - Do all instructions in par. 2.1, but start "Client.py" on same device that server started!
+    - When you joined to server, you will have all admin permissions
+    - Only one client can get console
+    - To give admin permission for other clients you need to use /admin [full_nick]
+- ## 4. Messages
+  - Class that uses for all text messages in chat
+  - All messages have type (text messages is DEFAULT)
+  - ### 4.1 DEFAULT
+    - This type used when user send text messages to other users
+    - Has datetime marker "[day.month hours:minutes" ("[1.1 00:00]")
+    - Datetime marker sets when user (client) get message! (not when sender send it!)
+  - ### 4.2 Other groups
+    - All other message's groups usess for informate users
+    - #### 4.2.1 INFO
+      - Uses when need to show info about some event in chat (eg. new user)
+      - Has prefix [INFO]
+    - #### 4.2.2 ERROR
+      - Uses when need to show error message that will describe 
