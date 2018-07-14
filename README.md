@@ -1,5 +1,4 @@
 # Local Chat v0.1
----
 - ## 1. Server
   - Main chat unit
   - Server will resend messages from user to other joined users
@@ -13,7 +12,7 @@
   - ### 2.1 Setup client
     - Start file "Client.py"
     - Write server's IP in the bottom text box and send it
-    - If all correct you will get INFO message "Welcome on server: (IP)"  (all INFO/ERRORS messages see in par. 4)
+    - If all correct you will get INFO message "Welcome on server: (IP)"
   - ### 2.2 Other functions
     - You will get nick "Guest#ID", ID - is your ID. If you want to change nick type "/setnick [new_nick]"
     - To send messages you can use "Enter" key or click on button "Send"
@@ -33,10 +32,33 @@
     - This type used when user send text messages to other users
     - Has datetime marker "[day.month hours:minutes" ("[1.1 00:00]")
     - Datetime marker sets when user (client) get message! (not when sender send it!)
+    - Has owner's nick marker in square brackets after datetime marker
   - ### 4.2 Other groups
     - All other message's groups usess for informate users
+    - Havent datetime marker
     - #### 4.2.1 INFO
       - Uses when need to show info about some event in chat (eg. new user)
       - Has prefix [INFO]
     - #### 4.2.2 ERROR
-      - Uses when need to show error message that will describe 
+      - Uses when need to show error message that will describe (eg invalid argument)
+      - Has prefix [ERROR]
+    - #### 4.2.3 BCAST
+      - Uses when need to broadcast some message (eg. banned user)
+      - Has prefix [BCAST]
+- ## 5. Commands
+  - Commands can be executed only from the client (server not execute commands)
+  - Syntax to execute command named "command" with N arguments: /command arg1 arg2 arg3 ... argN
+  - Default commands can execute anyone
+  - Admin commands can execute only users with admin permissions
+    - ### 5.1 Default commands
+      - setnick [new_nick] - change user's nick to "new_nick"
+      - list - returns nicks of online users
+    - ### 5.2 Admin commands
+      - admin [nick] - give admin permissions to user with nick "nick"
+      - ban [nick] - ban user's IP address whose nick is "nick" and kick this user from server
+      - banip  [ip] - ban IP "ip" (use if user not online, but you know his IP)
+      - unban [ip] - unban IP "ip" (you cant unban user by nick)
+---
+Created by Brinza Bezerukoff
+Vk: vk.com/brinza888
+Mail: bezrukoff888@gmail.com
