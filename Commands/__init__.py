@@ -1,1 +1,1 @@
-__all__ = ["setnick", "ban", "unban", "list", "banip", "admin"]
+__all__ = ["setnick", "ban", "unban", "list", "admin"]

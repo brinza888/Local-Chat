@@ -1,36 +1,34 @@
 import socket
 import threading
-import sys
 from User import User
 from Executor import Executor
-from Message import Message
+from Messages import *
 
 
 class Server:
-    ipBanned = Message.get_bcast("Banned ip: ")
-    ipUnBanned = Message.get_bcast("Unbanned ip: ")
-    userBanned = Message.get_bcast("Banned user: ")
-    youBanned = Message.get_info("Your ip have been banned!")
-    userNotFound = Message.get_error("User  not found!")
+    youBanned = Info.Info("Your ip have been banned!")
+    userNotFound = Error.Error("User not found!")
+    alreadyBanned = Error.Error("This ip already banned!")
+    notBanned = Error.Error("This ip has not banned!")
 
-    def __init__(self, ip, port=9090):
+    def __init__(self, ip, port=9090, max_users=10):
         self.console = False
         self.HOST = ip
         self.PORT = port
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.bind((self.HOST, self.PORT))
-        self.sock.listen(5)
+        self.sock.listen(max_users)
         self.blacklist = []
         self.users = []
+        self.ex = Executor(self)
         self.th = threading.Thread(target=self.acceptor)
         self.th.start()
-        self.ex = Executor(self)
-        self.welcomeMsg = Message.get_info("Welcome on server: " + self.HOST)
 
     def set_console(self, ip):
         self.console = ip
 
     def manager(self, msg, owner):
+        print(msg.get_text())
         if msg.text[0] == "/":
             name = msg.text[1:].split()[0]
             args = msg.text[1:].split()[1:]
@@ -39,6 +37,8 @@ class Server:
             self.resend(msg)
 
     def resend(self, msg):
+        if isinstance(msg, Bcast.Bcast):
+            print(msg.get_text())
         for u in self.users:
             u.send(msg)
 
@@ -47,35 +47,30 @@ class Server:
             conn, addr = self.sock.accept()
             u = User(addr[0], conn, self)
             if u.ip not in self.blacklist:
-                self.users.append(u)
-                print("New user", addr[0])
-                u.send(self.welcomeMsg)
+                u.accept_success()
                 if u.ip == self.console:
                     u.admin = True
                     self.console = ""
             else:
-                u.send(Server.youBanned)
+                u.accept_canceled(Server.youBanned)
 
     def nick2user(self, nick):
         for u in self.users:
             if u.nick == nick:
                 return u
-        return False
+        return Server.userNotFound
 
     def ban(self, ip):
+        if ip in self.blacklist:
+            return Server.alreadyBanned
         self.blacklist.append(ip)
-        for u in self.users:
-            if u.ip == ip:
-                self.resend(Server.userBanned + u.nick)
-                u.disconnect()
-                return
-        self.resend(Server.ipBanned + ip)
 
     def unban(self, ip):
+        if ip not in self.blacklist:
+            return Server.notBanned
         self.blacklist.remove(ip)
-        self.resend(Server.ipUnBanned + ip)
 
 
 HOST = input("Bind ip: ")
 server = Server(HOST)
-server.set_console("127.0.0.1")
+server.set_console(HOST)

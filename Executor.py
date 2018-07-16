@@ -1,30 +1,34 @@
-from Message import Message
+from Messages.Error import Error
+from Messages.Info import Info
 from Commands import *
 
 
 class Executor:
-    noPermission = Message.get_error("You haven't enough permissions!")
-    wrongArg = Message.get_error("Invalid argument!")
-    cmdNotFound = Message.get_error("Command not found!")
-    userNotFound = Message.get_error("User  not found!")
+    SHOW_USAGE = "SHOW_USAGE"
+    INVALID_ARG = "INVALID_ARG"
 
     def __init__(self, server):
         self.server = server
 
     def execute(self, name, caller, args):
         if name not in globals().keys():
-            caller.send(Executor.cmdNotFound)
+            caller.send(Error("Command not found!"))
             return
 
         cmd = globals()[name]
 
         if cmd.isadmin and not caller.admin:
-            caller.send(Executor.noPermission)
+            caller.send(Error("You haven't enough permissions!"))
             return
 
         if len(args) == 1:
             if args[0] == "help":
-                caller.send(cmd.help_txt)
+                caller.send(Info(cmd.help_txt))
                 return
 
-        cmd.execute(caller, args, self)
+        code = cmd.execute(caller, args, self)
+
+        if code is Executor.INVALID_ARG:
+            caller.send(Error("Invalid argument!"))
+        elif code is Executor.SHOW_USAGE:
+            caller.send(Error("Syntax: ") + cmd.syntax)

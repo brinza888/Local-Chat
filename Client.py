@@ -2,11 +2,18 @@ from tkinter import *
 import socket
 import threading
 import pickle
-from Message import Message
+from Messages import Message
+from Messages.Error import Error
 
 sock = False
-wrongAddr = Message.get_error("Wrong ip address")
-failedServer = Message.get_error("Failed to find server")
+wrongAddr = Error("Wrong ip address!")
+failedServer = Error("Failed to find server!")
+
+
+def reload_socket():
+    global sock
+    sock = False
+    btSend["text"] = "Connect"
 
 
 def setup(ip):
@@ -25,10 +32,11 @@ def setup(ip):
     th = threading.Thread(target=receive)
     th.daemon = True
     th.start()
+    btSend["text"] = "Send"
 
 
 root = Tk()
-root.title("ChatClient v0.1")
+root.title("ChatClient v0.2")
 root.geometry("500x400")
 root.resizable(False, False)
 
@@ -45,7 +53,7 @@ def send(ev):
         return
     if len(txt) == 0:
         return
-    message = Message(txt)
+    message = Message.Message(txt)
     data = pickle.dumps(message)
     sock.send(data)
 
@@ -54,13 +62,13 @@ entry = Entry(root, width=46, font="Arial 12")
 entry.place(x=214, y=378, anchor="center")
 entry.bind("<Return>", send)
 
-btSend = Button(root, text="Send", width=5, height=1, font="Arial 12")
+btSend = Button(root, text="Connect", width=5, height=1, font="Arial 12")
 btSend.place(x=460, y=378, anchor="center")
-btSend.bind("<Button-1>", send, "+")
+btSend.bind("<Button-1>", send)
 
 
 def show_msg(msg):
-    txt = msg.get() + "\n"
+    txt = msg.get_text() + "\n"
     chatForm.insert(END, txt)
 
 
@@ -70,6 +78,7 @@ def receive():
         try:
             data = sock.recv(1024)
         except socket.error:
+            reload_socket()
             return
         if not data:
             continue
