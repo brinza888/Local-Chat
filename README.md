@@ -1,4 +1,4 @@
-# Local Chat v0.1
+# Local Chat v0.2
 - ## 1. Server
   - Main chat unit
   - Server will resend messages from user to other joined users
@@ -24,7 +24,7 @@
     - Do all instructions in par. 2.1, but start "Client.py" on same device that server started!
     - When you joined to server, you will have all admin permissions
     - Only one client can get console
-    - To give admin permission for other clients you need to use /admin [full_nick]
+    - All admins commands you can see in par. 5
 - ## 4. Messages
   - Class that uses for all text messages in chat
   - All messages have type (text messages is DEFAULT)
@@ -32,19 +32,20 @@
     - This type used when user send text messages to other users
     - Has datetime marker "[day.month hours:minutes" ("[1.1 00:00]")
     - Datetime marker sets when user (client) get message! (not when sender send it!)
-    - Has owner's nick marker in square brackets after datetime marker
+    - Example: "[1.1 12:00] Brinza: Hello world!"
   - ### 4.2 Other groups
-    - All other message's groups usess for informate users
+    - All other message groups usess for informate users
     - Havent datetime marker
+    - Example: "ERROR: User not found!"
     - #### 4.2.1 INFO
-      - Uses when need to show info about some event in chat (eg. new user)
-      - Has prefix [INFO]
+      - Used when it is necessary to inform a specific user about an event (eg. greeting message)
+      - Has prefix INFO
     - #### 4.2.2 ERROR
       - Uses when need to show error message that will describe (eg invalid argument)
-      - Has prefix [ERROR]
+      - Has prefix ERROR
     - #### 4.2.3 BCAST
-      - Uses when need to broadcast some message (eg. banned user)
-      - Has prefix [BCAST]
+      - Uses when need to inform all users abou an event (eg. banned user)
+      - Has prefix BCAST
 - ## 5. Commands
   - Commands can be executed only from the client (server not execute commands)
   - Syntax to execute command named "command" with N arguments: /command arg1 arg2 arg3 ... argN
@@ -52,12 +53,11 @@
   - Admin commands can execute only users with admin permissions
     - ### 5.1 Default commands
       - setnick [new_nick] - change user's nick to "new_nick"
-      - list - returns nicks of online users
+      - list - returns nicks of users who are online
     - ### 5.2 Admin commands
       - admin [nick] - give admin permissions to user with nick "nick"
-      - ban [nick] - ban user's IP address whose nick is "nick" and kick this user from server
-      - banip  [ip] - ban IP "ip" (use if user not online, but you know his IP)
-      - unban [ip] - unban IP "ip" (you cant unban user by nick)
+      - ban [ip] - ban given IP address and kick user with this IP from server
+      - unban [ip] - unban given IP
 ---
 Created by Brinza Bezerukoff
 Vk: vk.com/brinza888
