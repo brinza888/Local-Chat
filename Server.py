@@ -71,6 +71,7 @@ class Server:
         self.blacklist.remove(ip)
 
 
+print("Local-Chat v0.2.1 Server")
 HOST = input("Bind ip: ")
 server = Server(HOST)
 server.set_console(HOST)

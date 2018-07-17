@@ -36,7 +36,7 @@ def setup(ip):
 
 
 root = Tk()
-root.title("ChatClient v0.2")
+root.title("Local-Chat v0.2.1 Client")
 root.geometry("500x400")
 root.resizable(False, False)
 
