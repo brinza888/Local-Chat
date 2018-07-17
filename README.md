@@ -4,7 +4,7 @@
   - Server will resend messages from user to other joined users
   - ### 1.1 Setup server
     - Start file "Serer.py"
-    - Write IP of your device in local network (use ipconfig in console to fing your ip)
+    - Write IP of your device in local network (use ipconfig in console to find your ip)
     - Then setup console to use admin commands (see par. 3)
 - ## 2. Client
   - Use for join server and use chat
@@ -32,7 +32,7 @@
     - This type used when user send text messages to other users
     - Has datetime marker "[day.month hours:minutes" ("[1.1 00:00]")
     - Datetime marker sets when user (client) get message! (not when sender send it!)
-    - Example: "[1.1 12:00] Brinza: Hello world!"
+    - Example: "[1.1 12:00] User: Hello world!"
   - ### 4.2 Other groups
     - All other message groups usess for informate users
     - Havent datetime marker
