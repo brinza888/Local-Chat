@@ -8,7 +8,7 @@ from Messages.Error import Error
 
 class User:
     count = 0
-    notOnServer = Error
+    notOnServer = Error("User not on server!")
 
     def __init__(self, ip, conn, server):
         self.admin = False
@@ -57,19 +57,19 @@ class User:
 
     def send(self, msg):
         data = pickle.dumps(msg)
-        self.__conn.send(data)
+        try:
+            self.__conn.send(data)
+        except ConnectionResetError:
+            if self.__onServer:
+                self.disconnect()
+                return User.notOnServer
 
-    def disconnect(self):
+    def disconnect(self, reason="You disconnected!"):
         if not self.__onServer:
-            return
+            return User.notOnServer
         if self in self.server.users:
             self.server.users.remove(self)
         self.__onServer = False
+        self.send(Info("You disconnected, because: ") + reason)
         self.__conn.close()
         self.join_leave_msg("Disconnected")
-
-    def kick(self, reason):
-        if not self.__onServer:
-            return User.notOnServer
-        self.send(Info("You kicked, because: ") + reason)
-        self.disconnect()

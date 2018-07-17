@@ -19,7 +19,7 @@ def execute(caller, args, ex):
 
     for u in ex.server.users:
         if u.ip == ip and not u.admin:
-            u.kick(ex.server.youBanned)
+            u.disconnect(ex.server.youBanned)
             ex.server.resend(Bcast("User banned: {0} ({1})".format(u.nick, u.ip)))
             flag = True
     if not flag:
