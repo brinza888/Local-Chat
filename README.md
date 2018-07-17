@@ -1,6 +1,6 @@
 # Local Chat v0.2.1
 - ## 1. Server
-  - Main chat unit
+  - Chat's main unit
   - Server will resend messages from user to other joined users
   - ### 1.1 Setup server
     - Start file "Serer.py"
@@ -52,10 +52,10 @@
   - Default commands can execute anyone
   - Admin commands can execute only users with admin permissions
     - ### 5.1 Default commands
-      - help - returns all available commands
+      - help - shows all available commands
       - setnick [new_nick] - change user's nick to "new_nick"
       - list - returns nicks of users who are online
-      - whois [nick] - returns user IP with given nick
+      - whois [nick] - shows user IP with given nick
     - ### 5.2 Admin commands
       - admin [nick] - give admin permissions to user with nick "nick"
       - ban [ip] - ban given IP address and kick user with this IP from server
