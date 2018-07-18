@@ -1,4 +1,7 @@
 # Local Chat v0.2.1
+Working releases you can find in master branch
+
+In Deveolpin-v1.0 only experimental commits
 - ## 1. Server
   - Chat's main unit
   - Server will resend messages from user to other joined users
@@ -60,6 +63,22 @@
       - admin [nick] - give admin permissions to user with nick "nick"
       - ban [ip] - ban given IP address and kick user with this IP from server
       - unban [ip] - unban given IP
+    - ## 5.3 Adding your own commands
+      - Create file name.py in directory Commands (name is name of your command)
+      - Init 3 variables:
+        - help_txt - contains text that will shown on use /name help (name is name of yout command)
+        - isadmin - boll var that define paermissions to use command. If true - inly admins can use it
+        - syntax - contains text, that will shown when command return SHOW_USAGE callback
+      - Create function execute(caller, args, ex):
+        - caller - contains object (class User) with caller's info
+        - args - contains arguments that given after command name
+        - ex - contains object (class Executor)
+        - in function you can write code that will execute
+        - "return ex.INVALID_ARGS" - will stop executing command and return to caller "Invalid argument!"
+        - "return ex.SHOW_USAGE" - will stop executing command and return to caller text, placed in syntax variable
+        - Also you can use ex.server combination to get server object and get server properties (eg. users array)
+      - As example you can see default commands
+      
 ---
 Created by Brinza Bezerukoff
 Vk: vk.com/brinza888
