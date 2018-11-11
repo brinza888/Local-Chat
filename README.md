@@ -1,7 +1,6 @@
 # Local Chat v0.2.1
 Working releases you can find in master branch
 
-In Deveolpin-v1.0 only experimental commits
 - ## 1. Server
   - Chat's main unit
   - Server will resend messages from user to other joined users
