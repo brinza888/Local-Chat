@@ -6,7 +6,7 @@ Working releases you can find in master branch
   - Server will resend messages from user to other joined users
   - ### 1.1 Setup server
     - Start file "Serer.py"
-    - Write IP of your device in local network (use ipconfig in console to find your ip)
+    - Write IP of your device in local network (use ipconfig in windows cmd.exe to find your ip)
     - Then setup console to use admin commands (see par. 3)
 - ## 2. Client
   - Use for join server and use chat
