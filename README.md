@@ -1,6 +1,8 @@
 # Local Chat v0.2.1
 Working releases you can find in master branch
 
+This software is licensed under the BSD 3-Clause License (see LICENSE file)
+
 - ## 1. Server
   - Chat's main unit
   - Server will resend messages from user to other joined users
