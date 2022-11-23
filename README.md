@@ -1,7 +1,12 @@
 # Local Chat v0.2.1
-Working releases you can find in master branch
 
-This software is licensed under the BSD 3-Clause License (see LICENSE file)
+**UNSAFETY for production use. Since this software using pickle module, it contains huge security troubles (e.g. RCE exploit).**
+
+About security trouble you can read on [pickle module page](https://docs.python.org/3/library/pickle.html). Pay attention on to red warning.
+
+Working releases you can find in master branch.
+
+**This software is licensed under the BSD 3-Clause License (see LICENSE file).**
 
 - ## 1. Server
   - Chat's main unit
